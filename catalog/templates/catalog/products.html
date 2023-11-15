@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ object.price }} <small> RUB</small></h1>
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>{{ object.description }}</li>
+                        <li>{{ object.description|truncatechars:100 }}</li>
 
                     </ul>
                     <button type="button" class="btn btn-lg btn-block btn-primary">Show me</button>
