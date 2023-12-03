@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import ListView
 
 from catalog.models import Category, Product
 
@@ -8,18 +9,11 @@ def main(request):
     return render(request, 'catalog/main.html')
 
 
-def categories(request):
-    context = {
-        'object_list': Category.objects.all(),
-        'title': 'Categories',
-    }
-    return render(request, 'catalog/categories.html', context)
+class CategoryListView(ListView):
+    model = Category
 
 
-def products(request, pk):
-    content = Category.objects.filter(pk=pk)
-    context = {
-        'object_list': Product.objects.filter(category=pk),
-        'title': f'{content}',
-    }
-    return render(request, 'catalog/products.html', context)
+class ProductListView(ListView):
+    model = Product
+
+
