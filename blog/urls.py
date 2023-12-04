@@ -5,8 +5,10 @@ from blog.views import *
 
 app_name = BlogConfig.name
 
-# urlpatterns = [
-#     path('', main, name='main'),
-#     path('categories/', CategoryListView.as_view(), name='categories'),
-#     path('/products/<int:pk>/', ProductListView.as_view(), name='products'),
-# ]
+urlpatterns = [
+    path('', BlogListView.as_view(), name='list'),
+    path('create/', BlogCreateView.as_view(), name='create'),
+    path('update/<slug>/', BlogUpdateView.as_view(), name='update'),
+    path('detail/<slug>/', BlogDetailView.as_view(), name='detail'),
+    path('delete/<slug>/', BlogDeleteView.as_view(), name='delete'),
+]

@@ -4,7 +4,6 @@ from django.views.generic import ListView
 from catalog.models import Category, Product
 
 
-# Create your views here.
 def main(request):
     return render(request, 'catalog/main.html')
 
