@@ -1,0 +1,16 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 box-shadow">
+            <h1>Create a New Version</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-lg btn-block btn-primary" type="submit">Create</button>
+            </form>
+
+
+        </div>
+    </div>
+    </div>
+{% endblock %}
