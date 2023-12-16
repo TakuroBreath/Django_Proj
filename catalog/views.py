@@ -22,7 +22,7 @@ class ProductListView(ListView):
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
-    success_url = reverse_lazy('catalog:products')
+    success_url = reverse_lazy('catalog:productsd')
 
     def form_valid(self, form):
         if form.is_valid():
@@ -36,7 +36,7 @@ class ProductCreateView(CreateView):
 class VersionCreateView(CreateView):
     model = Version
     form_class = VersionForm
-    success_url = reverse_lazy('catalog:list')
+    success_url = reverse_lazy('catalog:categories')
 
 
 class VersionUpdateView(UpdateView):
