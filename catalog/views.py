@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from pytils.translit import slugify
-
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Category, Product, Version
 
@@ -42,5 +41,3 @@ class VersionCreateView(CreateView):
 class VersionUpdateView(UpdateView):
     model = Version
     form_class = VersionForm
-
-
