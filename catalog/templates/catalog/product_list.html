@@ -17,7 +17,13 @@
                     <ul class="list-unstyled mt-3 mb-4">
 
                         <li>{{ object.description|truncatechars:100 }}</li>
-                        <li>{{ object.version }}</li>
+                        <h6>Доступные версии продукта:</h6>
+                        {% for version in object.version_set.all %}
+
+                            {% if version.is_active %}
+                                <li>{{ version.version_name }} ({{ version.version_number }})</li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
                     <button type="button" class="btn btn-lg btn-block btn-primary">Show me</button>
                 </div>
