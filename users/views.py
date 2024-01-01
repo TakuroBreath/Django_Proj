@@ -21,7 +21,7 @@ class RegisterView(CreateView):
         new_user = form.save()
         send_mail(
             subject="Confirm registration",
-            message=f'Please press this link to confirm your registration: http://127.0.0.1:8000/confirm/{new_user.pk}',
+            message=f'Please press this link to confirm your registration: http://127.0.0.1:8000/users/confirm/{new_user.pk}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[new_user.email]
         )
