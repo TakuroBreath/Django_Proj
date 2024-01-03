@@ -1,10 +1,12 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from django.core.mail import send_mail
 from django.conf import settings
 from users.models import User
-from users.forms import UserRegisterForm, UserProfileForm
+from users.forms import UserRegisterForm, UserProfileForm, CustomPasswordResetForm, CustomSetPasswordForm
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 
 
 class RegisterView(CreateView):
@@ -28,8 +30,7 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
 
-
-class ProfileView(UpdateView):
+class ProfileView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserProfileForm
     success_url = reverse_lazy("users:profile")
@@ -43,3 +44,17 @@ def confirm_email(request, pk):
     new_person.is_active = True
     new_person.save()
     return render(request, 'users/confirm_email.html', )
+
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'users/password_reset.html'
+
+    email_template_name = 'users/password_reset_email.html'
+    form_class = CustomPasswordResetForm
+    success_url = reverse_lazy('users:password_reset_done')
+
+
+class CustomUserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'users/password_reset_confirm.html'
+    success_url = reverse_lazy('users:password_reset_complete')
+    form_class = CustomSetPasswordForm

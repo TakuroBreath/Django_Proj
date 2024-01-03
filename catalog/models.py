@@ -1,5 +1,8 @@
 from django.db import models
 
+from Django_Proj import settings
+from users.models import User
+
 NULLABLE = {'blank': 'True', 'null': 'True'}
 
 
@@ -24,6 +27,8 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Price')
     create_date = models.DateTimeField(verbose_name='Create Date')
     changed_date = models.DateTimeField(verbose_name='Changed')
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name="Added by")
 
     def __str__(self):
         return f'{self.category} - {self.name} - {self.price}'

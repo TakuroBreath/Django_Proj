@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
@@ -14,30 +15,31 @@ class CategoryListView(ListView):
     model = Category
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
-    success_url = reverse_lazy('catalog:productsd')
+    success_url = reverse_lazy('catalog:products')
 
     def form_valid(self, form):
         if form.is_valid():
             new_form = form.save()
             new_form.slug = slugify(new_form.title)
+            new_form.user = self.request.user
             new_form.save()
 
         return super().form_valid(form)
 
 
-class VersionCreateView(CreateView):
+class VersionCreateView(LoginRequiredMixin, CreateView):
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('catalog:categories')
 
 
-class VersionUpdateView(UpdateView):
+class VersionUpdateView(LoginRequiredMixin, UpdateView):
     model = Version
     form_class = VersionForm
