@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.db import models
 
-from Django_Proj import settings
+
 from users.models import User
 
 NULLABLE = {'blank': 'True', 'null': 'True'}
@@ -25,8 +26,9 @@ class Product(models.Model):
     image = models.ImageField(verbose_name='Image', **NULLABLE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     price = models.IntegerField(verbose_name='Price')
-    create_date = models.DateTimeField(verbose_name='Create Date')
-    changed_date = models.DateTimeField(verbose_name='Changed')
+    create_date = models.DateTimeField(verbose_name='Create Date', auto_now_add=True)
+    changed_date = models.DateTimeField(verbose_name='Changed', auto_now_add=True)
+    is_published = models.BooleanField(verbose_name='Is Published', default=False)
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name="Added by")
 

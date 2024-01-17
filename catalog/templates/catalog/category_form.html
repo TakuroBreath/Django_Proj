@@ -2,7 +2,7 @@
 {% block content %}
     <div class="card-deck mb-3 text-center">
         <div class="card mb-4 box-shadow">
-            <h1>Create a New Product</h1>
+            <h1>Create a New Category</h1>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
@@ -12,5 +12,5 @@
 
         </div>
     </div>
-
+    </div>
 {% endblock %}
