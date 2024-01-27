@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, UpdateView
 from pytils.translit import slugify
 from catalog.forms import ProductForm, VersionForm, CategoryForm
 from catalog.models import Category, Product, Version
+from catalog.services import cache_categories
 
 
 def main(request):
@@ -13,6 +14,11 @@ def main(request):
 
 class CategoryListView(ListView):
     model = Category
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['category'] = cache_categories()
+        return context_data
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -38,10 +44,12 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:categories')
+
     def get_queryset(self):
         queryset = super().get_queryset()
 
         return queryset
+
 
 class VersionCreateView(LoginRequiredMixin, CreateView):
     model = Version
