@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from pytils.translit import slugify
 from catalog.forms import ProductForm, VersionForm, CategoryForm
 from catalog.models import Category, Product, Version
@@ -66,3 +66,7 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('catalog:categories')
+
+
+class ProductDetailView(DetailView):
+    model = Product
